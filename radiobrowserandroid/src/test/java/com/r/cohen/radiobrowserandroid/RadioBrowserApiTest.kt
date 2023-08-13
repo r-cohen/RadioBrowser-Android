@@ -32,7 +32,9 @@ class RadioBrowserApiTest {
 
         override suspend fun getStationsByCountry(
             userAgent: String,
-            countryCode: String
+            countryCode: String,
+            offset: Int,
+            limit: Int
         ): List<RadioBrowserStation> {
             if (countryCode != "IL") return emptyList()
             return listOf(
@@ -49,7 +51,9 @@ class RadioBrowserApiTest {
 
         override suspend fun getStationsBySearch(
             userAgent: String,
-            search: String
+            search: String,
+            offset: Int,
+            limit: Int
         ): List<RadioBrowserStation> {
             return emptyList()
         }
@@ -80,12 +84,17 @@ class RadioBrowserApiTest {
     fun searchEmpty_notAllowed() {
         val lock = CountDownLatch(1)
         var failError = ""
-        radioBrowserApi.searchStationsByName("", {
+        radioBrowserApi.searchStationsByName(
+            search = "",
+            offset = 0,
+            limit = 500,
+            onSuccess = {
 
-        }, { error ->
-            error?.let { failError = it }
-            lock.countDown()
-        })
+            }, { error ->
+                error?.let { failError = it }
+                lock.countDown()
+            }
+        )
         lock.await(1, TimeUnit.SECONDS)
         assertEquals("search cannot be empty", failError)
     }
@@ -94,12 +103,16 @@ class RadioBrowserApiTest {
     fun search_noResults() {
         val lock = CountDownLatch(1)
         var results: List<RadioBrowserStation>? = null
-        radioBrowserApi.searchStationsByName("no results", {
-            results = it
-            lock.countDown()
-        }, {
-
-        })
+        radioBrowserApi.searchStationsByName(
+            search = "no results",
+            offset = 0,
+            limit = 500,
+            onSuccess = {
+                results = it
+                lock.countDown()
+            }, {
+            }
+        )
         lock.await(1, TimeUnit.SECONDS)
         assertTrue(results != null && results?.isEmpty() ?: false)
     }

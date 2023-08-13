@@ -13,7 +13,7 @@ repositories {
 Add the dependeny declaration to your app or module's `build.gradle` file.
 ```gradle
 dependencies {
-    implementation 'com.github.r-cohen:RadioBrowser-Android:1.0.6'
+    implementation 'com.github.r-cohen:RadioBrowser-Android:1.0.7'
 }
 ```
 
@@ -42,6 +42,8 @@ api.getCountries(
 ```kotlin
 api.getStationsByCountry(
     countryCode = "IL",
+    offset = 0,
+    limit = 500,
     onSuccess = { stations ->
         stations.forEach { station -> outputText("station $station") }
     },
@@ -53,6 +55,8 @@ api.getStationsByCountry(
 ```kotlin
 api.searchStationsByName(
     search = "kol chai",
+    offset = 0,
+    limit = 500,
     onSuccess = { stations ->
         stations.forEach { station -> outputText("station $station") }
     },

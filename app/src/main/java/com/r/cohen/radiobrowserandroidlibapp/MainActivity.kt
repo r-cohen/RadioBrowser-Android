@@ -1,6 +1,7 @@
 package com.r.cohen.radiobrowserandroidlibapp
 
 import android.os.Bundle
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.r.cohen.radiobrowserandroid.RadioBrowserApi
@@ -16,13 +17,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun outputText(text: String) = runOnUiThread {
-        findViewById<TextView>(R.id.textviewOut).text = "${findViewById<TextView>(R.id.textviewOut).text}\n$text"
+        val view = TextView(this)
+        view.text = text
+        findViewById<LinearLayout>(R.id.linearlayoutOut).addView(view)
     }
 
     private fun getCountries() {
         api.getCountries(
             onSuccess = { countries ->
-                outputText("getCountries result:")
+                outputText("getCountries result (${countries.size}):")
                 countries.forEach { country -> outputText("country: $country") }
 
                 getStationsByCountry()
@@ -33,9 +36,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun getStationsByCountry() {
         api.getStationsByCountry(
-            countryCode = "IL",
+            countryCode = "US",
+            offset = 0,
+            limit = 500,
             onSuccess = { stations ->
-                outputText("\ngetStationsByCountry result:")
+                outputText("\ngetStationsByCountry result (${stations.size}):")
                 stations.forEach { station -> outputText("station $station") }
 
                 searchStationsByName()
@@ -47,6 +52,8 @@ class MainActivity : AppCompatActivity() {
     private fun searchStationsByName() {
         api.searchStationsByName(
             search = "kol chai",
+            offset = 0,
+            limit = 500,
             onSuccess = { stations ->
                 outputText("\nsearchStationsByName result:")
                 stations.forEach { station -> outputText("station $station") }

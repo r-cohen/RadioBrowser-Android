@@ -63,6 +63,8 @@ class RadioBrowserApi(private val userAgent: String = "RC.RadioBrowserAndroid") 
 
     fun getStationsByCountry(
         countryCode: String,
+        offset: Int = 0,
+        limit: Int = 1000,
         onSuccess: (List<RadioBrowserStation>) -> Unit,
         onFail: (String?) -> Unit
     ) = CoroutineScope(Dispatchers.IO).launch {
@@ -70,7 +72,9 @@ class RadioBrowserApi(private val userAgent: String = "RC.RadioBrowserAndroid") 
             initialize()
             radioBrowserService?.getStationsByCountry(
                 userAgent = userAgent,
-                countryCode = countryCode
+                countryCode = countryCode,
+                offset = offset,
+                limit = limit
             )?.let(onSuccess) ?: onFail.invoke(initFailMsg)
         } catch (e: Exception) {
             handleApiException(e, onFail)
@@ -79,6 +83,8 @@ class RadioBrowserApi(private val userAgent: String = "RC.RadioBrowserAndroid") 
 
     fun searchStationsByName(
         search: String,
+        offset: Int = 0,
+        limit: Int = 1000,
         onSuccess: (List<RadioBrowserStation>) -> Unit,
         onFail: (String?) -> Unit
     ) = CoroutineScope(Dispatchers.IO).launch {
@@ -90,7 +96,9 @@ class RadioBrowserApi(private val userAgent: String = "RC.RadioBrowserAndroid") 
             initialize()
             radioBrowserService?.getStationsBySearch(
                 userAgent = userAgent,
-                search = search
+                search = search,
+                offset = offset,
+                limit = limit
             )?.let(onSuccess) ?: onFail.invoke(initFailMsg)
         } catch (e: Exception) {
             handleApiException(e, onFail)

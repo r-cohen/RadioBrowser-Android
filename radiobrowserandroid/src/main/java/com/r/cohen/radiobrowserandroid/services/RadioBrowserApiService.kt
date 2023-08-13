@@ -26,13 +26,17 @@ interface RadioBrowserApiService {
     @GET("json/stations/bycountrycodeexact/{countryCode}")
     suspend fun getStationsByCountry(
         @Header("User-Agent") userAgent: String,
-        @Path("countryCode") countryCode: String
+        @Path("countryCode") countryCode: String,
+        @Query("offset") offset: Int = 0,
+        @Query("limit") limit: Int = 1000
     ): List<RadioBrowserStation>
 
     @GET("json/stations/byname/{search}")
     suspend fun getStationsBySearch(
         @Header("User-Agent") userAgent: String,
-        @Path("search") search: String
+        @Path("search") search: String,
+        @Query("offset") offset: Int = 0,
+        @Query("limit") limit: Int = 1000
     ): List<RadioBrowserStation>
 
     @GET("json/stations/bystateexact/{stateName}")
