@@ -60,7 +60,9 @@ class RadioBrowserApiTest {
 
         override suspend fun getStationsByState(
             userAgent: String,
-            stateName: String
+            stateName: String,
+            offset: Int,
+            limit: Int
         ): List<RadioBrowserStation> {
             return emptyList()
         }

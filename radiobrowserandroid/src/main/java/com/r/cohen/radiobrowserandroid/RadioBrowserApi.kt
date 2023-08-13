@@ -127,6 +127,8 @@ class RadioBrowserApi(private val userAgent: String = "RC.RadioBrowserAndroid") 
 
     fun getStationsByState(
         stateName: String,
+        offset: Int = 0,
+        limit: Int = 1000,
         onSuccess: (List<RadioBrowserStation>) -> Unit,
         onFail: (String?) -> Unit
     ) = CoroutineScope(Dispatchers.IO).launch {
@@ -138,7 +140,9 @@ class RadioBrowserApi(private val userAgent: String = "RC.RadioBrowserAndroid") 
             initialize()
             radioBrowserService?.getStationsByState(
                 userAgent = userAgent,
-                stateName = stateName
+                stateName = stateName,
+                offset = offset,
+                limit = limit
             )?.let(onSuccess) ?: onFail.invoke(initFailMsg)
         } catch (e: Exception) {
             handleApiException(e, onFail)

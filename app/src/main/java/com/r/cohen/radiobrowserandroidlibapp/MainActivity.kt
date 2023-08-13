@@ -80,6 +80,8 @@ class MainActivity : AppCompatActivity() {
     private fun getStationsByState() {
         api.getStationsByState(
             stateName = "Haifa",
+            offset = 0,
+            limit = 500,
             onSuccess = { stations ->
                 outputText("\ngetStationsByState result:")
                 stations.forEach { station ->

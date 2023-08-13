@@ -42,7 +42,9 @@ interface RadioBrowserApiService {
     @GET("json/stations/bystateexact/{stateName}")
     suspend fun getStationsByState(
         @Header("User-Agent") userAgent: String,
-        @Path("stateName") stateName: String
+        @Path("stateName") stateName: String,
+        @Query("offset") offset: Int = 0,
+        @Query("limit") limit: Int = 1000
     ): List<RadioBrowserStation>
 
     @GET("json/url/{stationUuid}")
