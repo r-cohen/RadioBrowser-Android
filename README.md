@@ -13,7 +13,7 @@ repositories {
 Add the dependeny declaration to your app or module's `build.gradle` file.
 ```gradle
 dependencies {
-    implementation 'com.github.r-cohen:RadioBrowser-Android:1.0.8'
+    implementation 'com.github.r-cohen:RadioBrowser-Android:1.0.9'
 }
 ```
 

@@ -73,6 +73,13 @@ class RadioBrowserApiTest {
         ): RadioBrowserClickResult {
             return RadioBrowserClickResult("true", "retrieved station url", stationUuid, "namd", "url")
         }
+
+        override suspend fun getStationsById(
+            userAgent: String,
+            stationUuid: String
+        ): List<RadioBrowserStation> {
+            return emptyList()
+        }
     }
 
     private val radioBrowserApi = RadioBrowserApi()

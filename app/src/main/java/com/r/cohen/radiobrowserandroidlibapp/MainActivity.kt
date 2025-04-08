@@ -56,7 +56,17 @@ class MainActivity : AppCompatActivity() {
             limit = 500,
             onSuccess = { stations ->
                 outputText("\nsearchStationsByName result:")
-                stations.forEach { station -> outputText("station $station") }
+                stations.forEach { station ->
+                    outputText("station $station")
+
+                    api.getStationByUuid(
+                        stationUuid = station.stationuuid,
+                        onSuccess = { byUid ->
+                            outputText("by Uid $byUid")
+                        },
+                        onFail = { error -> outputText("error: $error") }
+                    )
+                }
 
                 getStatesByCountry()
             },

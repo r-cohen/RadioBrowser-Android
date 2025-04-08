@@ -52,4 +52,10 @@ interface RadioBrowserApiService {
         @Header("User-Agent") userAgent: String,
         @Path("stationUuid") stationUuid: String
     ): RadioBrowserClickResult
+
+    @GET("json/stations/byuuid/{stationUuid}")
+    suspend fun getStationsById(
+        @Header("User-Agent") userAgent: String,
+        @Path("stationUuid") stationUuid: String
+    ): List<RadioBrowserStation>
 }

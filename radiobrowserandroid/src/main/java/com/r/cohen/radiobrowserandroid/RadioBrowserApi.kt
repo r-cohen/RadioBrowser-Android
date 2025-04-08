@@ -149,6 +149,26 @@ class RadioBrowserApi(private val userAgent: String = "RC.RadioBrowserAndroid") 
         }
     }
 
+    fun getStationByUuid(
+        stationUuid: String,
+        onSuccess: (List<RadioBrowserStation>) -> Unit,
+        onFail: (String?) -> Unit
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        if (stationUuid.isEmpty()) {
+            onFail.invoke("stationUuid cannot be empty")
+            return@launch
+        }
+        try {
+            initialize()
+            radioBrowserService?.getStationsById(
+                userAgent = userAgent,
+                stationUuid = stationUuid
+            )?.let(onSuccess) ?: onFail.invoke(initFailMsg)
+        } catch (e: Exception) {
+            handleApiException(e, onFail)
+        }
+    }
+
     fun stationClick(
         stationUuid: String,
         onSuccess: (RadioBrowserClickResult) -> Unit,
