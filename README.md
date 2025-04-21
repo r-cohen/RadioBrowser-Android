@@ -1,8 +1,6 @@
 # RadioBrowser-Android
 An Android library for consuming [RadioBrowser](https://www.radio-browser.info/) API
 
-[<img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="60" />](https://www.buymeacoffee.com/raphael.cohen)
-
 ## Install
 Add the Jitpack maven repository in the list of repositories.
 ```gradle
@@ -83,3 +81,4 @@ api.stationClick(
     onFail = { error -> outputText("error: $error") }
 )
 ```
+[<img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="60" />](https://www.buymeacoffee.com/raphael.cohen)
