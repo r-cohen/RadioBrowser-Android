@@ -9,5 +9,6 @@ data class RadioBrowserStation(
     val favicon: String,
     val tags: String,
     val country: String,
-    val languages: String,
+    val countrysubdivision: String,
+    val language: String,
 )

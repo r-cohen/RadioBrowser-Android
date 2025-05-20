@@ -28,7 +28,9 @@ interface RadioBrowserApiService {
         @Header("User-Agent") userAgent: String,
         @Path("countryCode") countryCode: String,
         @Query("offset") offset: Int = 0,
-        @Query("limit") limit: Int = 1000
+        @Query("limit") limit: Int = 1000,
+        @Query("order") order: String = RadioBrowserOrder.BY_NAME.getApiValue(),
+        @Query("reverse") reverse: Boolean = false
     ): List<RadioBrowserStation>
 
     @GET("json/stations/byname/{search}")
@@ -58,4 +60,5 @@ interface RadioBrowserApiService {
         @Header("User-Agent") userAgent: String,
         @Path("stationUuid") stationUuid: String
     ): List<RadioBrowserStation>
+
 }

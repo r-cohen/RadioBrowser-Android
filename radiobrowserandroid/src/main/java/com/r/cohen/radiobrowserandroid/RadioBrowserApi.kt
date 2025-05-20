@@ -65,6 +65,8 @@ class RadioBrowserApi(private val userAgent: String = "RC.RadioBrowserAndroid") 
         countryCode: String,
         offset: Int = 0,
         limit: Int = 1000,
+        order: RadioBrowserOrder = RadioBrowserOrder.BY_NAME,
+        reverse: Boolean = false,
         onSuccess: (List<RadioBrowserStation>) -> Unit,
         onFail: (String?) -> Unit
     ) = CoroutineScope(Dispatchers.IO).launch {
@@ -74,7 +76,9 @@ class RadioBrowserApi(private val userAgent: String = "RC.RadioBrowserAndroid") 
                 userAgent = userAgent,
                 countryCode = countryCode,
                 offset = offset,
-                limit = limit
+                limit = limit,
+                order = order.getApiValue(),
+                reverse = reverse
             )?.let(onSuccess) ?: onFail.invoke(initFailMsg)
         } catch (e: Exception) {
             handleApiException(e, onFail)
