@@ -34,7 +34,9 @@ class RadioBrowserApiTest {
             userAgent: String,
             countryCode: String,
             offset: Int,
-            limit: Int
+            limit: Int,
+            order: String,
+            reverse: Boolean
         ): List<RadioBrowserStation> {
             if (countryCode != "IL") return emptyList()
             return listOf(
@@ -44,7 +46,10 @@ class RadioBrowserApiTest {
                     url = "https://kan88.media.kan.org.il/hls/live/2024812/2024812/kan88_mp3/chunklist.m3u8",
                     url_resolved = "https://kan88.media.kan.org.il/hls/live/2024812/2024812/kan88_mp3/chunklist.m3u8",
                     homepage = "https://www.kan.org.il/",
-                    favicon = ""
+                    favicon = "",
+                    tags = "",
+                    country = "Israel",
+                    language = ""
                 )
             )
         }
